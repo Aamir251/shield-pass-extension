@@ -3,8 +3,11 @@ export const spWrapper = `
   top: 20px;
   right: 0;
   width: 300px;
-  height: 200px;
+  max-height: 240px;
   background-color: white;
+  z-index : 1000;
+  display : none;
+  broder-bottom : 1px solid #e9e9e9;
 `
 
 

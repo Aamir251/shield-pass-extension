@@ -4,7 +4,7 @@ import { loginUI } from "../ui/login"
 import { getAuthFromBackground } from "./get-auth"
 import { getCredentialsSharedWithMe } from "./shared-credentials"
 
-export const renderCredentialUi = async (icons: HTMLDivElement[]) => {
+export const renderCredentialUi = async (icons: HTMLDivElement[]): Promise<HTMLDivElement[]> => {
   const isAuthenticated = await getAuthFromBackground()
 
 
@@ -18,9 +18,6 @@ export const renderCredentialUi = async (icons: HTMLDivElement[]) => {
 
   if (isAuthenticated === "authorized") {
     credentials = await getCredentialsSharedWithMe()
-
-  }
-  if (isAuthenticated === "authorized") {
     credentialListWrapper.innerHTML = credentialsListUI(credentials)
 
   } else {
@@ -28,14 +25,15 @@ export const renderCredentialUi = async (icons: HTMLDivElement[]) => {
     credentialListWrapper.innerHTML = `${loginUI}`
   }
 
-
+  let credentialsListWrapper: HTMLDivElement[] = []
   icons.forEach((icon) => {
-    console.log({ icon: icon.parentNode })
-    icon.parentNode?.appendChild(credentialListWrapper)
+    const wrapperClone = credentialListWrapper.cloneNode(true) as HTMLDivElement;
+
+    icon.parentNode?.appendChild(wrapperClone)
+
+    credentialsListWrapper.push(wrapperClone)
   })
 
-
-  // document.body.append(credentialListWrapper)
-  return credentialListWrapper
+  return credentialsListWrapper
 
 }

@@ -7,6 +7,7 @@ export const addIconToInputs = (inputNodes: NodeListOf<Element>): HTMLDivElement
     const wrapper = document.createElement('div');
     wrapper.style.position = 'relative';
     wrapper.style.display = 'inline-block';
+    wrapper.setAttribute("sp-main-wrap", "")
 
     const shadowRoot = wrapper.attachShadow({ mode: 'open' });
 
