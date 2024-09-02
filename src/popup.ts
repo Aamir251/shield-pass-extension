@@ -1,17 +1,72 @@
 import browser from "webextension-polyfill";
+import { AuthStatus, getAuthFromBackground } from "./utils/get-auth";
+import { loginFormUI } from "./ui/login-form";
+import { SERVER_URL } from "./utils/constants";
+import { changeAuthStatus } from "./background-scripts/auth";
 
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", async () => {
   const body = document.body;
 
-  const img = document.createElement("img");
-  img.src = browser.runtime.getURL("icon/128.png");
-  body.appendChild(img);
+  const isAuthenticated = await getAuthFromBackground();
 
-  const title = document.createElement("h1");
-  title.textContent = "My Password Manager";
-  body.appendChild(title);
+  if (isAuthenticated === "authorized") {
+    // render LoggedIn UI
+  } else {
+    // render email form
 
-  const description = document.createElement("p");
-  description.textContent = "Manage your passwords securely";
-  body.appendChild(description);
+    const formUI = loginFormUI();
+
+    body.appendChild(formUI);
+
+    addFormSubmitListener(formUI.querySelector("form") as HTMLFormElement);
+  }
 });
+
+function addFormSubmitListener(form: HTMLFormElement) {
+  const btn = form.querySelector("button")!;
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    try {
+      btn.disabled = true;
+      const formData = new FormData(form);
+
+      const email = formData.get("email") as string;
+      const password = formData.get("password") as string;
+
+      if (!email || !password) throw Error("Please enter all Fields");
+
+      const resp = await fetch(`${SERVER_URL}/api/extension-login`, {
+        method: "POST",
+        body: JSON.stringify({
+          email,
+          password,
+        }),
+      });
+
+      const data = await resp.json();
+
+      if (!data.success) throw Error(data.error);
+
+      const authChanged = changeAuthStatus("authorized");
+
+      if (authChanged) {
+        // Get the current active tab
+        const [tab] = await browser.tabs.query({
+          active: true,
+          currentWindow: true,
+        });
+        if (tab.id) {
+          // Reload the current tab
+          await browser.tabs.reload(tab.id);
+        }
+        // Close the popup
+        window.close();
+      }
+    } catch (error: any) {
+      alert(error.message);
+    } finally {
+      btn.disabled = false;
+    }
+  });
+}

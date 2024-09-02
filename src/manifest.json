@@ -27,6 +27,7 @@
     "cookies",
     "scripting",
     "activeTab",
+    "nativeMessaging",
     "<all_urls>"
   ],
   "host_permissions": [

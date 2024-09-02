@@ -1,6 +1,11 @@
-import { setAuthMessageListener, setAuthStatus, startPeriodicAuthCheck } from "./background-scripts/auth";
+import {
+  setAuthMessageListener,
+  setAuthStatus,
+  startPeriodicAuthCheck,
+} from "./background-scripts/auth";
 
 import browser from "webextension-polyfill";
+import { init } from "./content";
 
 // Initialize auth checking
 browser.runtime.onInstalled.addListener(() => {
@@ -9,7 +14,7 @@ browser.runtime.onInstalled.addListener(() => {
 
 // Check auth on tab update
 browser.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
-  if (changeInfo.status === 'complete') {
+  if (changeInfo.status === "complete") {
     setAuthStatus();
   }
 });
@@ -17,30 +22,31 @@ browser.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
 // Set up auth message listener
 setAuthMessageListener();
 
-
 /**
- *  Current Tab Listener 
-*/
+ *  Current Tab Listener
+ */
 
 browser.runtime.onMessage.addListener(async (message: { action: string }) => {
   if (message.action === "getCurrentTab") {
-    const currentTab = await browser.tabs.query({ active: true, windowType: "normal", currentWindow: true })
+    const currentTab = await browser.tabs.query({
+      active: true,
+      windowType: "normal",
+      currentWindow: true,
+    });
 
-    return currentTab
-
+    return currentTab;
   }
-})
+});
 
+/**
+ * Open Popup Listener
+ */
 
-// browser.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
-
-//   browser.scripting.insertCSS({
-//     target: { tabId: tabId }, css: '.sp-wrapper { position: fixed!important; top: 20px !important; right: 0!important; width: 300px !important; height: 200px !important; background- color: white!important; border: 1px solid red!important }'
-//   }).then(() => {
-//     console.log({ tabId });
-
-//   })
-// })
+browser.runtime.onMessage.addListener(async (message: { action: string }) => {
+  if (message.action === "openPopup") {
+    browser.action.openPopup();
+  }
+});
 
 // Export setAuthStatus for use in other parts of the extension if needed
 export { setAuthStatus } from "./background-scripts/auth";

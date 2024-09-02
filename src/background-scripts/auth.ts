@@ -37,3 +37,9 @@ export function setAuthMessageListener() {
     }
   });
 }
+
+
+export const changeAuthStatus = (status: AuthStatus): boolean => {
+  isAuthenticated = status;
+  return true;
+}
