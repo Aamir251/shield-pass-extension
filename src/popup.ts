@@ -1,5 +1,5 @@
 import browser from "webextension-polyfill";
-import { AuthStatus, getAuthFromBackground } from "./utils/get-auth";
+import { getAuthFromBackground } from "./utils/get-auth";
 import { loginFormUI } from "./ui/login-form";
 import { SERVER_URL } from "./utils/constants";
 import { changeAuthStatus } from "./background-scripts/auth";

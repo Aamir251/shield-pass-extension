@@ -5,7 +5,6 @@ import {
 } from "./background-scripts/auth";
 
 import browser from "webextension-polyfill";
-import { init } from "./content";
 
 // Initialize auth checking
 browser.runtime.onInstalled.addListener(() => {
@@ -13,7 +12,7 @@ browser.runtime.onInstalled.addListener(() => {
 });
 
 // Check auth on tab update
-browser.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
+browser.tabs.onUpdated.addListener((_tabId, changeInfo, _tab) => {
   if (changeInfo.status === "complete") {
     setAuthStatus();
   }
@@ -36,6 +35,8 @@ browser.runtime.onMessage.addListener(async (message: { action: string }) => {
 
     return currentTab;
   }
+
+  return null;
 });
 
 /**

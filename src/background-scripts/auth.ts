@@ -5,11 +5,10 @@ import { SERVER_URL } from "../utils/constants";
 let isAuthenticated: AuthStatus = "pending";
 
 export async function setAuthStatus() {
-
   try {
     const response = await fetch(`${SERVER_URL}/api/check-auth`, {
       method: "GET",
-      credentials: "include"
+      credentials: "include",
     });
     if (response.ok) {
       isAuthenticated = "authorized";
@@ -31,15 +30,15 @@ export function getAuthStatus(): AuthStatus {
 }
 
 export function setAuthMessageListener() {
-  browser.runtime.onMessage.addListener(async (message: { action: string }, sender) => {
+  browser.runtime.onMessage.addListener(async (message: { action: string }) => {
     if (message.action === "getAuthStatus") {
       return getAuthStatus();
     }
+    return null;
   });
 }
-
 
 export const changeAuthStatus = (status: AuthStatus): boolean => {
   isAuthenticated = status;
   return true;
-}
+};

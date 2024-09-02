@@ -9,7 +9,7 @@ export const addIconToInputs = (
   let icons: HTMLDivElement[] = [];
   let wrappers: HTMLDivElement[] = [];
 
-  inputNodes.forEach((input) => {
+  inputNodes.forEach((_input) => {
     const wrapper = document.createElement("div");
     wrapper.style.position = "absolute";
     wrapper.style.display = "inline-block";

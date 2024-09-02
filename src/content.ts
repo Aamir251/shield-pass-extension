@@ -2,7 +2,6 @@ import { addIconToInputs } from "./utils/add-input-icon";
 import { renderCredentialUi } from "./utils/credential-ui";
 import { addClickListenerToIcons } from "./utils/icon-click-listener";
 import { addCredentialItemClickListener } from "./utils/credential-click";
-import browser from "webextension-polyfill";
 import { addOpenPoupupListener } from "./utils/open-popup-listener";
 
 const inputNodes = document.querySelectorAll(
