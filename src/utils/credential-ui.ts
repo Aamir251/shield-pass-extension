@@ -1,39 +1,35 @@
-import { spWrapper } from "../styles/base"
-import { Credential, credentialsListUI } from "../ui/credential-list"
-import { loginUI } from "../ui/login"
-import { getAuthFromBackground } from "./get-auth"
-import { getCredentialsSharedWithMe } from "./shared-credentials"
+import { Credential, credentialsListUI } from "../ui/credential-list";
+import { loginUI } from "../ui/login";
+import { getAuthFromBackground } from "./get-auth";
+import { getCredentialsSharedWithMe } from "./shared-credentials";
 
-export const renderCredentialUi = async (icons: HTMLDivElement[]): Promise<HTMLDivElement[]> => {
-  const isAuthenticated = await getAuthFromBackground()
+export const renderCredentialUi = async (
+  icons: HTMLDivElement[]
+): Promise<HTMLDivElement[]> => {
+  const isAuthenticated = await getAuthFromBackground();
 
+  let credentials: Credential[] = [];
 
-  let credentials: Credential[] = []
-
-  const credentialListWrapper = document.createElement("div")
-  credentialListWrapper.classList.add("sp-credentials-wrapper")
-
-
-  credentialListWrapper.setAttribute('style', spWrapper);
+  const credentialListWrapper = document.createElement("div");
+  credentialListWrapper.classList.add("sp-credentials-wrapper");
 
   if (isAuthenticated === "authorized") {
-    credentials = await getCredentialsSharedWithMe()
-    credentialListWrapper.innerHTML = credentialsListUI(credentials)
-
+    credentials = await getCredentialsSharedWithMe();
+    credentialListWrapper.innerHTML = credentialsListUI(credentials);
   } else {
-
-    credentialListWrapper.innerHTML = `${loginUI}`
+    credentialListWrapper.innerHTML = `${loginUI}`;
   }
 
-  let credentialsListWrapper: HTMLDivElement[] = []
+  let credentialsListWrapper: HTMLDivElement[] = [];
   icons.forEach((icon) => {
-    const wrapperClone = credentialListWrapper.cloneNode(true) as HTMLDivElement;
+    const wrapperClone = credentialListWrapper.cloneNode(
+      true
+    ) as HTMLDivElement;
 
-    icon.parentNode?.appendChild(wrapperClone)
+    icon.parentNode?.appendChild(wrapperClone);
 
-    credentialsListWrapper.push(wrapperClone)
-  })
+    credentialsListWrapper.push(wrapperClone);
+  });
 
-  return credentialsListWrapper
-
-}
+  return credentialsListWrapper;
+};

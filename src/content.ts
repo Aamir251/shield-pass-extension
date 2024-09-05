@@ -23,30 +23,9 @@ export async function init() {
 
   addOpenPoupupListener(credentialListWrappers);
 
-  addHoverEffectsToCredentialsDropdown(credentialListWrappers);
   addClickListenerToIcons(icons);
 
   addCredentialItemClickListener(credentialListWrappers, inputNodes);
-}
-
-function addHoverEffectsToCredentialsDropdown(
-  credentialsWrapper: HTMLDivElement[]
-) {
-  credentialsWrapper.forEach((wrapper) => {
-    const credentialOverviewDiv = wrapper.querySelector(".sp-cred-detail");
-
-    const allInnerElements = credentialOverviewDiv?.querySelectorAll("*");
-    allInnerElements?.forEach((el) => {
-      const element = el as HTMLElement;
-
-      element.onmouseover = () => {
-        element.style.opacity = "0.75";
-      };
-      element.onmouseout = () => {
-        element.style.opacity = "1";
-      };
-    });
-  });
 }
 
 function setIconWrappersPositions(

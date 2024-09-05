@@ -1,4 +1,7 @@
 import browser from "webextension-polyfill";
+import { baseStyles } from "../styles/base";
+
+import { credentialsStyles } from "../styles/credentials";
 
 export const addIconToInputs = (
   inputNodes: NodeListOf<Element>
@@ -9,6 +12,12 @@ export const addIconToInputs = (
   let icons: HTMLDivElement[] = [];
   let wrappers: HTMLDivElement[] = [];
 
+  const basicStyles = new CSSStyleSheet();
+  basicStyles.replaceSync(baseStyles);
+
+  const credentialsCss = new CSSStyleSheet();
+  credentialsCss.replaceSync(credentialsStyles);
+
   inputNodes.forEach((_input) => {
     const wrapper = document.createElement("div");
     wrapper.style.position = "absolute";
@@ -17,18 +26,14 @@ export const addIconToInputs = (
 
     const shadowRoot = wrapper.attachShadow({ mode: "open" });
 
+    shadowRoot.adoptedStyleSheets = [basicStyles, credentialsCss];
+
     const iconContainer = document.createElement("div");
+
     iconContainer.classList.add("shield-pass-icon");
-    iconContainer.style.position = "absolute";
-    iconContainer.style.right = "5px";
-    iconContainer.style.top = "50%";
-    iconContainer.style.transform = "translateY(-50%)";
-    iconContainer.style.cursor = "pointer";
 
     const icon = document.createElement("img");
     icon.src = browser.runtime.getURL("icon/16.png");
-    icon.style.width = "16px";
-    icon.style.height = "16px";
 
     iconContainer.appendChild(icon);
     shadowRoot.appendChild(iconContainer);

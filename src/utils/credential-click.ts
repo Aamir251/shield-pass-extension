@@ -7,9 +7,11 @@ export const addCredentialItemClickListener = (
   credentialListWrappers.forEach((credentialListWrapper, index) => {
     const credentialListItems = credentialListWrapper.querySelectorAll("li");
 
+    console.log({ credentialListItems });
+
     credentialListItems.forEach((item) => {
       // heading click listener
-      const heading = item.querySelector("div") as HTMLDivElement;
+      const heading = item.querySelector(".overview") as HTMLDivElement;
       heading.addEventListener("click", async function () {
         const downArrow = item.querySelector(".sp-down-arrow") as SVGElement;
 
@@ -42,7 +44,7 @@ export const addCredentialItemClickListener = (
         ".sp-cred-email"
       ) as HTMLParagraphElement | null;
       const passwordFillButton = item.querySelector(
-        ".sp-cred-password"
+        ".fill-password-btn"
       ) as HTMLButtonElement;
 
       if (credentialUsernameNode) {

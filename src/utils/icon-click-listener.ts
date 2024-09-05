@@ -6,7 +6,7 @@ export const addClickListenerToIcons = async (icons: HTMLDivElement[]) => {
         toggleCredentialWrapperDropdown(icon, "none");
       });
 
-      toggleCredentialWrapperDropdown(icon, "block");
+      toggleCredentialWrapperDropdown(icon, "flex");
     });
   });
 
@@ -29,7 +29,7 @@ export const addClickListenerToIcons = async (icons: HTMLDivElement[]) => {
 
 function toggleCredentialWrapperDropdown(
   icon: HTMLDivElement,
-  displayValue: "none" | "block"
+  displayValue: "none" | "block" | "flex"
 ) {
   const credentialsListDiv = icon.parentNode!.querySelector(
     ".sp-credentials-wrapper"

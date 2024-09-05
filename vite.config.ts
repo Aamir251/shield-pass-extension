@@ -18,7 +18,6 @@ export default defineConfig({
       manifest: generateManifest,
       watchFilePaths: ["package.json", "src/manifest.json"],
       webExtConfig: {
-        startUrl: ["http://localhost:3000/temp"],
         browserConsole: true,
       },
     }),
