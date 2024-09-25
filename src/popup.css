@@ -70,7 +70,9 @@ button:hover {
 
 
 button.sp-logout-btn {
-  position: absolute;
-  right: 10;
-  top: 10;
+ background: transparent !important;
+ transition: color 0.3s ease;
+}
+button.sp-logout-btn:hover {
+  color: #F86262;
 }

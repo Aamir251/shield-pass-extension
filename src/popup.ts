@@ -3,6 +3,7 @@ import { getAuthFromBackground } from "./utils/get-auth";
 import { loginFormUI } from "./ui/login-form";
 import { SERVER_URL } from "./utils/constants";
 import { changeAuthStatus } from "./background-scripts/auth";
+import { addLogoutListener } from "./utils/logout-listener";
 
 document.addEventListener("DOMContentLoaded", async () => {
   const body = document.body;
@@ -14,12 +15,16 @@ document.addEventListener("DOMContentLoaded", async () => {
   } else {
     // render email form
 
-    const formUI = loginFormUI();
-
-    body.appendChild(formUI);
-
-    addFormSubmitListener(formUI.querySelector("form") as HTMLFormElement);
+   
   }
+
+  const formUI = loginFormUI();
+
+  body.appendChild(formUI);
+
+  addFormSubmitListener(formUI.querySelector("form") as HTMLFormElement);
+
+  addLogoutListener(formUI.querySelector(".sp-logout-btn") as HTMLButtonElement)
 });
 
 function addFormSubmitListener(form: HTMLFormElement) {

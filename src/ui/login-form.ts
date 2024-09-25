@@ -15,7 +15,7 @@ export const loginFormUI = (): HTMLDivElement => {
           <input type="password" required name="password" placeholder="Your Password" /> 
         </div>
         <button type="submit">Submit</button>
-        <button class="sp-logout-btn" >Log Out</button>
+        <button type="button" class="sp-logout-btn" >Log Out</button>
       </form>
     </div>
   `;

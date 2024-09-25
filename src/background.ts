@@ -69,5 +69,6 @@ browser.tabs.onUpdated.addListener(function (tabId, changeInfo, _tab) {
   }
 })
 
+
 // Export setAuthStatus for use in other parts of the extension if needed
 export { setAuthStatus } from "./background-scripts/auth";
