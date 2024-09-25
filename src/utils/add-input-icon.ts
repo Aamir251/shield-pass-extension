@@ -25,7 +25,7 @@ export const addIconToInputs = (
     wrapper.setAttribute("sp-main-wrap", "");
 
     const shadowRoot = wrapper.attachShadow({ mode: "open" });
-
+    
     shadowRoot.adoptedStyleSheets = [basicStyles, credentialsCss];
 
     const iconContainer = document.createElement("div");

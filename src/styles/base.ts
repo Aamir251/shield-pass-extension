@@ -18,7 +18,8 @@ export const baseStyles = `
     right : 5px;
     top : 50%;
     transform : translateY(-50%);
-    cursor : pointer
+    cursor : pointer;
+    z-index : 5000;
   }
 
 
@@ -29,7 +30,7 @@ export const baseStyles = `
     width: 300px;
     max-height: 240px;
     background-color: #141415;
-    z-index : 1000;
+    z-index : 7000;
     display : none;
     flex-direction : column;
     row-gap : 8px;

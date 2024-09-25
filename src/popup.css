@@ -67,3 +67,10 @@ button {
 button:hover {
   opacity: 0.8;
 }
+
+
+button.sp-logout-btn {
+  position: absolute;
+  right: 10;
+  top: 10;
+}

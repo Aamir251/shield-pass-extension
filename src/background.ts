@@ -36,7 +36,14 @@ browser.runtime.onMessage.addListener(async (message: { action: string }) => {
     return currentTab;
   }
 
+  if (message.action === "clearSessionStorage") {
+    sessionStorage.removeItem("sp-shared-cred")
+    return null
+  }
+
   return null;
+
+  
 });
 
 /**
@@ -48,6 +55,19 @@ browser.runtime.onMessage.addListener(async (message: { action: string }) => {
     browser.action.openPopup();
   }
 });
+
+
+/**
+ * URL Change Listener
+*/
+
+browser.tabs.onUpdated.addListener(function (tabId, changeInfo, _tab) {
+  if (changeInfo.status === "complete") {
+    browser.tabs.sendMessage(tabId, {
+      message : "TabUpdated"
+    })
+  }
+})
 
 // Export setAuthStatus for use in other parts of the extension if needed
 export { setAuthStatus } from "./background-scripts/auth";

@@ -15,6 +15,8 @@ export const renderCredentialUi = async (
 
   if (isAuthenticated === "authorized") {
     credentials = await getCredentialsSharedWithMe();
+    console.log({ sharedCreds : credentials});
+    
     credentialListWrapper.innerHTML = credentialsListUI(credentials);
   } else {
     credentialListWrapper.innerHTML = `${loginUI}`;

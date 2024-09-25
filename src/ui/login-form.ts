@@ -3,6 +3,7 @@ export const loginFormUI = (): HTMLDivElement => {
 
   div.innerHTML = `
     <div>
+      
       <h1>Shield Pass</h1>
       <form>
         <div>
@@ -14,6 +15,7 @@ export const loginFormUI = (): HTMLDivElement => {
           <input type="password" required name="password" placeholder="Your Password" /> 
         </div>
         <button type="submit">Submit</button>
+        <button class="sp-logout-btn" >Log Out</button>
       </form>
     </div>
   `;
